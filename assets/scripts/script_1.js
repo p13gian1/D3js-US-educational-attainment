@@ -20,7 +20,7 @@ function donutChart() {
     var width,
         height,
         margin = {top: 10, right: 10, bottom: 10, left: 10},
-        colour = d3.scaleOrdinal().range(["#0FA3B1", "#73c3bf", "#a1d8c8", "#cbe0a7", "#f2db84", "#f7af72", "#FF9B42"]), // colour scheme
+        colour = d3.scaleOrdinal().range(["#73d22f", "#73eccc", "#a1d8c8", "#cbe0a7", "#f2db84", "#f7af72", "#FF9B42"]), // colour scheme
         variable, // value in data that will dictate proportions on chart
         category, // compare data by
         padAngle, // effectively dictates the gap between slices
@@ -139,6 +139,7 @@ function donutChart() {
                 // add tooltip (svg circle element) when mouse enters label or slice
                 selection.on('mouseenter', function (data) {
 
+                    responsiveVoice.speak(toolTipSpeaking(data),'UK English Female');
                     pieChartSVG.append('text')
                         .attr('class', 'toolCircle')
                         .attr('dy', -15) // hard-coded. can adjust this to adjust text vertical alignment in tooltip
@@ -182,6 +183,25 @@ function donutChart() {
                 return tip;
             }
             // ===========================================================================================
+            // creates speaking message
+
+            function toolTipSpeaking(data) {
+
+                var tip = '',
+                    i   = 0;
+
+                for (var key in data.data) {
+                    
+                    var value = key == "Percent" ? percentFormat(data.data[key]) : data.data[key];
+
+                    tip +=  key  + value;
+                   
+                    i++;
+                }
+
+                return tip;
+            }
+
 
         });
     }
