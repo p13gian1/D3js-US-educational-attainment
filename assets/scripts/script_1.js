@@ -158,6 +158,7 @@ function donutChart() {
                 // remove the tooltip when mouse leaves the slice/label
                 selection.on('mouseout', function () {
                     d3.selectAll('.toolCircle').remove();
+                    responsiveVoice.cancel();
                 });
             }
 
