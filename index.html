@@ -42,24 +42,31 @@
   <header>
        <nav>
     <ul>
-      <li><a href="#top" >Top</a></li>
-      <li><a href="#national">National</a></li>
-      <li><a href="#regional">Regional</a></li>
-      <li><a href="#state">State-Level</a></li>
+      <li><a href="#top" onmouseover="showPartOne()">Top</a></li>
+      <li><a href="#national" onmouseover="showPartOne()">National</a></li>
+      <li><a href="#regional" onmouseover="showPartTwo()">Regional</a></li>
+      <li><a href="#state" onmouseover="showPartThree()">State-Level</a></li>
     <ul>
         </nav>
     </header>
 <body>
     <h1 class="title" onmouseover="responsiveVoice.speak('Educational Attainment in the United States','US English Male');" onmouseleave="responsiveVoice.cancel();">Educational Attainment in the United States</h1>    
-	
 	<p><br></p>
+    <div id="part-one">
     <h2 class="subtitle" onmouseover="responsiveVoice.speak('Nation-Wide Education Level of Population in Schooling','US English Male');" onmouseleave="responsiveVoice.cancel();">Nation-Wide Education Level of Population in Schooling</h2>
-	
-    <svg id="pie-chart" width="960" height="450"></svg><a name="regional"></a>
-    <p><br><br><br></p>
-    <h2 class="subtitle"onmouseover="responsiveVoice.speak('Educational Attainment: Region-level Breakdown of University Students','US English Male');" onmouseleave="responsiveVoice.cancel();">Educational Attainment: Region-level Breakdown of University Students</h2>
+    </div>
+	<svg id="pie-chart" width="960" height="450"></svg>
 
-	
+
+
+
+
+
+
+    <a name="regional"></a>
+    <div id="part-two">       
+    
+    <h2 class="subtitle"onmouseover="responsiveVoice.speak('Educational Attainment: Region-level Breakdown of University Students','US English Male');" onmouseleave="responsiveVoice.cancel();">Educational Attainment: Region-level Breakdown of University Students</h2>
     <form id="tree-form">
         <div class="radio-toolbar">
             <input type="radio" id="mode1" name="treeSum" value="number" checked> 
@@ -74,18 +81,25 @@
             <label for="mode4" onmouseover="responsiveVoice.speak('Females in College (18-24yrs) (in %)','US English Male');" onmouseleave="responsiveVoice.cancel();">Females in College (18-24yrs) (in %)
             </label>
         </div>
-
-
+    </div>
     </form>
 	<p></p>
-    <div id="chart"></div>
+    <div onload="preload()" id="chart"></div> 
+
+
+
+
+
+
+
+
+
+
 	<a name="state"></a>
-    <p><br><br></p>
+    <div id="part-three">
     <h2 class="subtitle" onmouseover="responsiveVoice.speak('Education Level of Population in Schooling: State-level Breakdown','US English Male');" onmouseleave="responsiveVoice.cancel();">Education Level of Population in Schooling: State-level Breakdown
     </h2>
-	
-
-    <form id="stack-form">
+	<form id="stack-form">
         <div class="radio-toolbar">
             <input type="radio" id="radio1" name="mode" value="bypercent" checked>
             <label for="radio1" onmouseover="responsiveVoice.speak('Students (in %)',
@@ -96,14 +110,23 @@
             </label>
         </div>
     </form>
-    <div>
-        <svg id="stacked-bar-chart"></svg>
     </div>
+
+    <div>
+       <svg id="stacked-bar-chart"></svg> 
+    </div>
+
+
+
+
 
  <audio>
     <source src="assets/sounds/snd.ogg"></source>
     <source src="assets/sounds/snd.mp3"></source>
  </audio>   
+
+
+
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="assets/scripts/script_1.js"></script>
@@ -111,14 +134,50 @@
 <script src="assets/scripts/script_3.js"></script>
 <script>
 
-// playing sound over elements of top menu
+
+function showPartOne(){
+document.getElementById("part-one").style.display = "block";
+document.getElementById("pie-chart").style.display = "block";
+
+document.getElementById("part-two").style.display = "none";
+document.getElementById("chart").style.display = "none";
+
+document.getElementById("part-three").style.display = "none";
+document.getElementById("stacked-bar-chart").style.display = "none";
+}
+
+function showPartTwo(){
+document.getElementById("part-one").style.display = "none";
+document.getElementById("pie-chart").style.display = "none";
+
+document.getElementById("part-two").style.display = "block";
+document.getElementById("chart").style.display = "initial";
+
+document.getElementById("part-three").style.display = "none";
+document.getElementById("stacked-bar-chart").style.display = "none";
+}
+
+function showPartThree(){
+document.getElementById("part-one").style.display = "none";
+document.getElementById("pie-chart").style.display = "none";
+
+document.getElementById("part-two").style.display = "none";
+document.getElementById("chart").style.display = "none";
+
+document.getElementById("part-three").style.display = "block";
+document.getElementById("stacked-bar-chart").style.display = "block";
+}
 
 $("nav a").mouseover(function() {
- var audio = document.getElementsByTagName("audio")[0];   
+ var audio = document.getElementsByTagName("audio")[0];
  audio.play();
 });
 
-    $( document ).ready(function() {
+showPartOne();
+
+
+
+$( document ).ready(function() {
       $(window).scroll(function(){
         if ($(window).scrollTop() >= 300) {
            $('nav').addClass('fixed-header');
@@ -129,8 +188,5 @@ $("nav a").mouseover(function() {
     });
 });
 </script>
-
 </body>
-
-
 </html>
